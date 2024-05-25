@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .from-line-green-start {
+        --tw-gradient-from: #acedaf;
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    }
+    .to-line-green-end {
+        --tw-gradient-to: #7ed681;
+    }
+}
+@layer utilities {
+    .from-card-green-start {
+        --tw-gradient-from: #fafff9;
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    }
+    .to-card-green-end {
+        --tw-gradient-to: #f4fff4;
+    }
+}
+@layer utilities {
+    .from-title-white-start {
+        --tw-gradient-from: rgba(67, 67, 67, 0) 6%;
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    }
+    .to-title-white-end {
+        --tw-gradient-to: #6f726f;
+    }
+}
+
+/* Add this to your custom CSS if you haven't configured TailwindCSS spacing scale */
+@layer base {
+    .space-y-4 > :not(:first-child) {
+        /* margin-top: 16px; */
+        border-top: 10px solid #f3f5f5;
+    }
+}

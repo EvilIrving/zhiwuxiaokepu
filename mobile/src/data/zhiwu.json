@@ -1,0 +1,29 @@
+{
+  "title": "女贞花",
+  "scientific_name": "The plant Rosa var. alba f. plena is a beautiful rose cultivar. It is often confused with Rosa subsp. arvensis, but the Hybrid variety shows distinct characteristics.",
+  "sections": [
+    {
+      "section_title": "基本属性",
+      "attributes": [
+        { "label": "花期", "value": "5-7月" },
+        { "label": "果期", "value": "7月-翌年5月" },
+        { "label": "种子成熟", "value": "10月~11月之间" },
+        { "label": "分布", "value": "主要分布于华南地区和长江流域各地，为习见的庭园或绿篱树种" },
+        { "label": "科", "value": "木犀科" },
+        { "label": "属", "value": "女贞属" }
+      ]
+    },
+    {
+      "section_title": "形态特征",
+      "description": "常绿乔木。一般高8m，可达25m。叶对生，革质。圆锥花序，花白色。核果蓝黑色，熟时红黑色。"
+    },
+    {
+      "section_title": "生态习性",
+      "description": "植物稍耐阴；喜温暖湿润气候，较耐寒；较耐旱；耐轻度盐碱。"
+    },
+    {
+      "section_title": "绿化运用",
+      "description": "观花，观姿态。常栽作行道树，还可作丁香、桂花的砧木。"
+    }
+  ]
+}
