@@ -26,7 +26,8 @@ const SwiperUI = defineComponent({
   },
   setup(props) {
     return () => (
-      <div class="relative overflow-hidden">
+      <div class="relative overflow-hidden h-full">
+        {/* swiper-container */}
         <div class="flex">
           {props.images.map((image, index) => (
             <img
@@ -36,11 +37,12 @@ const SwiperUI = defineComponent({
             />
           ))}
         </div>
-        <div class="flex justify-center absolute bottom-4 w-full">
+        {/* swiper-indicator */}
+        <div class="flex justify-center absolute bottom-2 w-full z-30">
           {props.images.map((_, index) => (
             <div
               key={index}
-              class={["h-1 w-4 mx-2 rounded-full", index === props.currentIndex ? "bg-blue-500" : "bg-gray-300"]}
+              class={["h-1 ml-2 rounded-full",index === props.currentIndex ? "w-6" : "w-2", index === props.currentIndex ? "bg-white" : "bg-gray-300"]}
             ></div>
           ))}
         </div>
