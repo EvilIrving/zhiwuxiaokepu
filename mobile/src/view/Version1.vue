@@ -1,7 +1,7 @@
 <template>
     <div class="relative">
         <header class="w-full absolute h-56">
-            <Swiper :images="images" />
+            <Swiper :images="images" :autoplay="true"/>
             <!-- <img src="../assets/hua.jpeg" class="w-full h-56 object-cover z-10" alt="" /> -->
             <Title :name="name" :description="description"></Title>
         </header>
