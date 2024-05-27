@@ -1,5 +1,5 @@
 import { defineComponent } from 'vue'
-import footer from './icons/footer.jpg'
+import footer from '@/assets/images/footer.jpg'
 export default defineComponent({
   name: 'Footer',
   setup() {

@@ -1,29 +1,29 @@
-@import "./normalize";
-@import "./base.css";
+@import './normalize';
+@import './base.css';
 /* @import url("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"); */
 
 .slide-out-left {
-    animation: slide-out-left 0.5s forwards;
+  animation: slide-out-left 0.5s forwards;
 }
 
 .slide-in-right {
-    animation: slide-in-right 0.5s forwards;
+  animation: slide-in-right 0.5s forwards;
 }
 
 @keyframes slide-out-left {
-    from {
-        transform: translateX(0%);
-    }
-    to {
-        transform: translateX(-100%);
-    }
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
 @keyframes slide-in-right {
-    from {
-        transform: translateX(100%);
-    }
-    to {
-        transform: translateX(0%);
-    }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
 }
