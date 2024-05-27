@@ -1,5 +1,6 @@
 @import "./normalize";
 @import "./base.css";
+/* @import url("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"); */
 
 .slide-out-left {
     animation: slide-out-left 0.5s forwards;

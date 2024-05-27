@@ -1,64 +1,18 @@
-// swiper-ui.jsx
 import { defineComponent } from 'vue'
 
-const SwiperUI = defineComponent({
+export default defineComponent({
+  name: 'SwiperUI',
   props: {
-    images: {
-      type: Array,
-      required: true,
-    },
-    currentIndex: {
-      type: Number,
-      required: true,
-    },
-    onNext: {
-      type: Function,
-      required: true,
-    },
-    onPrev: {
-      type: Function,
-      required: true,
-    },
-    onTouchStart: {
-      type: Function,
-      required: true,
-    },
-    onTouchMove: {
-      type: Function,
-      required: true,
-    },
-    onTouchEnd: {
-      type: Function,
-      required: true,
-    },
+    // 根据需要可以添加更多自定义UI的Props
   },
-  setup(props) {
+  setup(props, { slots, emit }) {
+    // 在这里可以设置一些状态或计算属性，用于动态更新样式或响应交互
+
     return () => (
-      <div class="relative overflow-hidden h-full">
-        <div class="flex">
-          {props.images.map((image, index) => (
-            <img
-              key={index}
-              src={image}
-              class={['w-full', index === props.currentIndex ? 'block' : 'hidden', index === props.currentIndex ? 'slide-out-left' : index === props.nextIndex ? 'slide-in-right' : '']}
-              style={{
-                transform: `translateX(${(index - props.currentIndex) * 100}%)`,
-                transition: 'transform 0.3s ease',
-              }}
-            />
-          ))}
-        </div>
-        <div class="flex justify-center absolute bottom-2 w-full z-30">
-          {props.images.map((_, index) => (
-            <div
-              key={index}
-              class={['h-1 w-4 mx-2 rounded-full', index === props.currentIndex ? 'bg-blue-500' : 'bg-gray-300']}
-            ></div>
-          ))}
-        </div>
+      <div class="flex items-center justify-between relative w-full h-full">
+        {/* 这个slot用来展示swiper-item组件 */}
+        <div class="w-full h-full flex flex-row flex-nowrap overflow-hidden">{slots.default ? slots.default() : null}</div>
       </div>
     )
   },
 })
-
-export default SwiperUI

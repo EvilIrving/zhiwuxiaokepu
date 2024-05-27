@@ -1,35 +1,36 @@
-import { defineComponent, ref } from 'vue'
-import rawData from '@/data/zhiwu.json'
+import { defineComponent, ref, toRefs, watch } from 'vue'
 import Card from '@/components/FlattenCard'
 export default defineComponent({
-  name: 'Home',
-  setup() {
-    const basic = ref(rawData.sections[0])
-    const morphologicalFeatures = ref(rawData.sections[1])
-    const ecologicalHabits = ref(rawData.sections[2])
-    const greeningApplication = ref(rawData.sections[3])
-    const color = '#7683d5'
+  name: 'Cards',
+  props: {
+    basic: {
+      type: Array,
+      default: () => [],
+    },
+    morphological: String,
+    lifeHabit: String,
+    greenApplication: String,
+  },
+  setup(props) {
+    const { basic, morphological, lifeHabit, greenApplication } = props
+
     return () => (
-      <div className='space-y-4 text-base '>
+      <div className="space-y-4 text-base ">
         <Card
-          title={basic.value.section_title}
-          content={basic.value.attributes}
-          backgroundColor={color}
+          title="基本属性"
+          content={basic}
         />
         <Card
-          title={morphologicalFeatures.value.section_title}
-          content={morphologicalFeatures.value.description}
-          backgroundColor={color}
+          title="形态特征"
+          content={morphological}
         />
         <Card
-          title={ecologicalHabits.value.section_title}
-          content={ecologicalHabits.value.description}
-          backgroundColor={color}
+          title="生活习性"
+          content={lifeHabit}
         />
         <Card
-          title={greeningApplication.value.section_title}
-          content={greeningApplication.value.description}
-          backgroundColor={color}
+          title="绿化运用"
+          content={greenApplication}
         />
       </div>
     )

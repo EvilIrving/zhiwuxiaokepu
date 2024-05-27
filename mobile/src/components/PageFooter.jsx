@@ -1,11 +1,10 @@
 import { defineComponent } from 'vue'
 import footer from './icons/footer.jpg'
-import test from './icons/test.png'
 export default defineComponent({
   name: 'Footer',
   setup() {
     return () => (
-      <footer class="w-full relative">
+      <footer class="w-full relative top-56">
         <img
           src={footer}
           alt="footer"

@@ -1,93 +1,124 @@
-// swiper.jsx
-import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
-import SwiperUI from './swiper-ui'
-const Swiper = defineComponent({
+import { defineComponent, ref, onMounted, onUnmounted, watch } from 'vue'
+import SwiperItem from './swiper-item.jsx'
+import Indicator from './indicator.jsx'
+import SwiperUI from './swiper-ui.jsx'
+import SwiperBtn from './swiper-btn.jsx'
+export default defineComponent({
+  name: 'Swiper',
+  components: {
+    SwiperItem,
+    Indicator,
+    SwiperUI,
+    SwiperBtn,
+  },
   props: {
-    images: {
-      type: Array,
-      required: true,
-    },
-    autoplay: {
+    slides: Array,
+    autoPlay: {
       type: Boolean,
       default: false,
     },
+    loop: {
+      type: Boolean,
+      default: false,
+    },
+    interval: {
+      type: Number,
+      default: 3000,
+    },
   },
   setup(props) {
-    const currentIndex = ref(0)
-    let timer
+    const activeIndex = ref(1)
 
-    const next = () => {
-      if (currentIndex.value < props.images.length - 1) {
-        currentIndex.value++
-      } else {
-        currentIndex.value = 0
+    let autoPlayInterval = null
+
+    const startAutoPlay = () => {
+      if (props.autoPlay) {
+        stopAutoPlay() // 确保不会有多个interval
+        autoPlayInterval = setInterval(() => {
+          nextSlide()
+        }, props.autoPlayIntervalTime || 3000)
       }
     }
 
-    const prev = () => {
-      if (currentIndex.value > 0) {
-        currentIndex.value--
-      } else {
-        currentIndex.value = props.images.length - 1
+    const stopAutoPlay = () => {
+      if (autoPlayInterval) {
+        clearInterval(autoPlayInterval)
+        autoPlayInterval = null
       }
     }
 
-    const onTouchStart = (event) => {
-      clearInterval(timer)
-      startX = event.touches[0].clientX
-    }
-
-    const onTouchMove = (event) => {
-      const deltaX = event.touches[0].clientX - startX
-      if (Math.abs(deltaX) > 50) {
-        deltaX > 0 ? prev() : next()
+    const nextSlide = () => {
+      if (activeIndex.value < props.slides.length - 1) {
+        activeIndex.value++
+      } else if (props.loop) {
+        activeIndex.value = 0
       }
     }
 
-    const onTouchEnd = () => {
-      startX = 0
-      if (props.autoplay) {
-        timer = setInterval(next, 3000)
+    const prevSlide = () => {
+      if (activeIndex.value > 0) {
+        activeIndex.value--
+      } else if (props.loop) {
+        activeIndex.value = props.slides.length - 1
       }
     }
-
-    let startX = 0
 
     onMounted(() => {
-      if (props.autoplay) {
-        timer = setInterval(next, 3000)
-      }
+      startAutoPlay()
     })
 
     onUnmounted(() => {
-      clearInterval(timer)
+      stopAutoPlay()
     })
 
-    // const images = ref(props.images)
+    watch(activeIndex, () => {
+      // 当活动索引改变时，你可能想要做些事情
+    })
 
     return {
-      images: props.images,
-      currentIndex,
-      onTouchStart,
-      onTouchMove,
-      onTouchEnd,
-      onNext: next,
-      onPrev: prev,
+      activeIndex,
+      startAutoPlay,
+      stopAutoPlay,
+      nextSlide,
+      prevSlide,
     }
   },
-  render() {
+  render(props) {
+    const { activeIndex, slides } = props
+
+    // 后退，切换到上一张图片
+    const handlePrevSlide = () => {
+      activeIndex = (activeIndex - 1 + slides.length) % slides.length
+    }
+
+    // 前进，切换到下一张图片
+    const handleNextSlide = () => {
+      activeIndex = (activeIndex + 1) % slides.length
+    }
+
     return (
-      <SwiperUI
-        images={this.images}
-        currentIndex={this.currentIndex}
-        onNext={this.onNext}
-        onPrev={this.onPrev}
-        onTouchStart={this.onTouchStart}
-        onTouchMove={this.onTouchMove}
-        onTouchEnd={this.onTouchEnd}
-      />
+      <>
+        <SwiperUI>
+          {slides.map((slide, index) => (
+            <SwiperItem
+              key={index}
+              slide={slide}
+              slideIndex={index}
+              activeIndex={activeIndex}
+              isNext={index === (activeIndex + 1) % slides.length}
+              isPrev={index === (activeIndex - 1 + slides.length) % slides.length}
+            />
+          ))}
+        </SwiperUI>
+        <SwiperBtn
+          onPrev-slide={handlePrevSlide}
+          onNext-slide={handleNextSlide}
+        ></SwiperBtn>
+        <Indicator
+          count={slides.length}
+          activeIndex={activeIndex}
+        />
+      </>
     )
   },
 })
-
-export default Swiper

@@ -15,10 +15,35 @@ const config: Config = {
           200: '#90a0e1',
           600: '#7683d5',
         },
+        customGray: '#3D3D3D',
+      },
+      keyframes: {
+        slideInRight: {
+          '0%': { transform: 'translateX(100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        slideInLeft: {
+          '0%': { transform: 'translateX(-100%)', opacity: '0' },
+          '100%': { transform: 'translateX(0)', opacity: '1' },
+        },
+        slideOutRight: {
+          '0%': { transform: 'translateX(0)', opacity: '1' },
+          '100%': { transform: 'translateX(100%)', opacity: '0' },
+        },
+        slideOutLeft: {
+          '0%': { transform: 'translateX(0)', opacity: '1' },
+          '100%': { transform: 'translateX(-100%)', opacity: '0' },
+        },
+      },
+      animation: {
+        slideInRight: 'slideInRight 0.3s ease-out forwards',
+        slideInLeft: 'slideInLeft 0.3s ease-out forwards',
+        slideOutRight: 'slideOutRight 0.3s ease-out forwards',
+        slideOutLeft: 'slideOutLeft 0.3s ease-out forwards',
       },
     },
   },
-  plugins: [require('daisyui')],
+  // plugins: [require('daisyui')],
 
   // daisyUI config (optional - here are the default values)
   daisyui: {
