@@ -6,7 +6,10 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  base: '/',
+  build: {
+    outDir: '植物小科普', // 设置打包输出目录的名称
+  },
   plugins: [vue(), vueJsx()],
   resolve: {
     alias: {

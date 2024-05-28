@@ -10,9 +10,11 @@ lerna-debug.log*
 node_modules
 .DS_Store
 dist
+植物小科普
 dist-ssr
 coverage
 *.local
+*.zip
 
 /cypress/videos/
 /cypress/screenshots/
