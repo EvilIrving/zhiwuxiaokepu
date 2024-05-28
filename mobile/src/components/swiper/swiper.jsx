@@ -1,5 +1,4 @@
 import { defineComponent, onMounted, ref } from 'vue'
-import Slide from './Slide'
 
 export default defineComponent({
   name: 'Swiper',
@@ -28,24 +27,27 @@ export default defineComponent({
     const t = ref({ sx: 0, s: 0, m: 0, e: 0 })
     const index = ref(1)
 
-    const s = (x) => {
+    const touchstart = (x) => {
       if (slideing.value) {
+        console.log(slideing.value, 'touchStart')
         clearTimeout(timer1.value)
         t.value.sx = getTransform()
         t.value.s = x.touches[x.touches.length - 1].clientX
       }
     }
 
-    const m = (x) => {
+    const touchmove = (x) => {
       if (slideing.value && t.value.s !== -1) {
+        console.log(slideing.value, 'touchMove')
         clearTimeout(timer1.value)
         t.value.m = x.touches[x.touches.length - 1].clientX - t.value.s
         setTransform(t.value.m + t.value.sx)
       }
     }
 
-    const e = () => {
+    const touchend = () => {
       if (slideing.value && t.value.s !== -1) {
+        console.log(slideing.value, 'touchEnd')
         clearTimeout(timer1.value)
         setTransform(t.value.m + t.value.sx)
         let x = getTransform()
@@ -53,6 +55,10 @@ export default defineComponent({
         index.value = Math.round(x / _width.value) * -1
         wh('touch')
       }
+    }
+
+    function clearTouch(e) {
+      e.preventDefault()
     }
 
     const setTransform = (num) => {
@@ -153,12 +159,15 @@ export default defineComponent({
     })
 
     return () => (
-      <section class="relative w-full h-full overflow-hidden ">
+      <section
+        class="relative w-full h-full overflow-hidden "
+        onTouchmove={clearTouch}
+      >
         <div
           class={`w-full h-full flex duration-0 ease-linear ${className.value}`}
-          onTouchstart={s}
-          onTouchmove={m}
-          onTouchend={e}
+          onTouchstart={touchstart}
+          onTouchmove={touchmove}
+          onTouchend={touchend}
         >
           {slots.default && slots.default()}
         </div>

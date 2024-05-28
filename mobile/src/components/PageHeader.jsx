@@ -18,18 +18,13 @@ export default defineComponent({
     const { name, latinName } = props
     const fotmattedTitle = computed(() => {
       let text = latinName.trim()
-      // 定义关键字规则
-      const words = ['var.', 'f.', 'cv.', 'subsp.', 'Hybrid']
-      const wordRegex = new RegExp(`(?<!\\w)(${words.join('|')})(?!\\w)`, 'g')
+      // 定义正则表达式模式
+      const patterns = [/var\./g, /f\./g, /cv\./g, /subsp\./g, /Hybrid/g, /'[^']*'/g]
 
-      // 定义单引号内容规则
-      const singleQuoteRegex = /'[^']*'/g
-
-      // 首先替换 `words` 内容
-      text = text.replace(wordRegex, '<span class="not-italic">$1</span>')
-
-      // 然后替换单引号内容
-      text = text.replace(singleQuoteRegex, (match) => `<span class="not-italic">${match}</span>`)
+      // 替换匹配的内容
+      patterns.forEach((pattern) => {
+        text = text.replace(pattern, '<span class="not-italic">$&</span>')
+      })
 
       return text
     })

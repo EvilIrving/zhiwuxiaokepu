@@ -22,11 +22,11 @@
 }
 @layer utilities {
   .from-title-white-start {
-    --tw-gradient-from: rgba(67, 67, 67, 0) 6%;
+    --tw-gradient-from: rgba(111, 114, 111, 0) 6%;
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   }
   .to-title-white-end {
-    --tw-gradient-to: rgba(255, 255, 255, 0.6) 100%;
+    --tw-gradient-to: rgba(67, 67, 67, 1) 100%;
   }
 }
 
