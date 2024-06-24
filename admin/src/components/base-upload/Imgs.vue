@@ -40,7 +40,7 @@
 import { ref, computed, inject, watch } from "vue";
 import { Plus } from "@element-plus/icons-vue";
 import { uploadImage } from "@/api/upload";
-import { ElNotification, formContextKey, formItemContextKey } from "element-plus";
+import { ElMessage, formContextKey, formItemContextKey } from "element-plus";
 
 
 // 接受父组件参数
@@ -102,14 +102,14 @@ const beforeUpload = (rawFile) => {
   const imgSize = rawFile.size / 1024 / 1024 < props.fileSize;
   const imgType = props.fileType.includes(rawFile.type);
   if (!imgType)
-    ElNotification({
+    ElMessage({
       title: "温馨提示",
       message: "上传图片不符合所需的格式！",
       type: "warning"
     });
   if (!imgSize)
     setTimeout(() => {
-      ElNotification({
+      ElMessage({
         title: "温馨提示",
         message: `上传图片大小不能超过 ${props.fileSize}M！`,
         type: "warning"
@@ -127,9 +127,8 @@ const handleHttpUpload = async (options) => {
   formData.append("file", options.file);
   try {
     const api = uploadImage;
-    console.log(options.file,'options.file');
-    const { data } = await api(formData);
-    options.onSuccess(data);
+    const result = await api(formData);
+    options.onSuccess(result);
   } catch (error) {
     options.onError(error);
   }
@@ -143,11 +142,11 @@ const handleHttpUpload = async (options) => {
 const emit = defineEmits(['update:fileList']);
 const uploadSuccess = (response, uploadFile) => {
   if (!response) return;
-  uploadFile.url = response.fileUrl;
+  uploadFile.url = response.url;
   emit("update:fileList", _fileList.value);
   // 调用 el-form 内部的校验方法（可自动校验）
   formItemContext?.prop && formContext?.validateField([formItemContext.prop]);
-  ElNotification({
+  ElMessage({
     title: "温馨提示",
     message: "图片上传成功！",
     type: "success"
@@ -167,7 +166,7 @@ const handleRemove = (file) => {
  * @description 图片上传错误
  * */
 const uploadError = () => {
-  ElNotification({
+  ElMessage({
     title: "温馨提示",
     message: "图片上传失败，请您重新上传！",
     type: "error"
@@ -178,7 +177,7 @@ const uploadError = () => {
  * @description 文件数超出
  * */
 const handleExceed = () => {
-  ElNotification({
+  ElMessage({
     title: "温馨提示",
     message: `当前最多只能上传 ${props.limit} 张图片，请移除后上传！`,
     type: "warning"
@@ -196,3 +195,104 @@ const handlePictureCardPreview = (file) => {
   imgViewVisible.value = true;
 };
 </script>
+
+<style scoped>
+.upload-box /deep/ .upload .el-upload-dragger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 1px dashed var(--el-border-color-darker);
+  border-radius: v-bind(borderRadius);
+}
+
+.upload-box /deep/ .upload .el-upload-dragger:hover {
+  border: 1px dashed var(--el-color-primary);
+}
+
+.upload-box /deep/ .upload .el-upload-dragger.is-dragover {
+  background-color: var(--el-color-primary-light-9);
+  border: 2px dashed var(--el-color-primary) !important;
+}
+
+.upload-box /deep/ .upload .el-upload-list__item,
+.upload-box /deep/ .upload .el-upload--picture-card {
+  width: v-bind(width);
+  height: v-bind(height);
+  background-color: transparent;
+  border-radius: v-bind(borderRadius);
+}
+
+.upload-box /deep/ .upload .upload-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.upload-box /deep/ .upload .upload-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: rgb(0 0 0 / 60%);
+  opacity: 0;
+  transition: var(--el-transition-duration-fast);
+
+
+}
+
+.upload-box /deep/ .upload .upload-handle .handle-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6%;
+  color: aliceblue;
+
+
+}
+
+.upload-box /deep/ .upload .upload-handle .handle-icon .el-icon {
+  margin-bottom: 15%;
+  font-size: 140%;
+}
+
+.upload-box /deep/ .upload .upload-handle .handle-icon span {
+  font-size: 100%;
+}
+
+
+.upload-box /deep/ .upload .el-upload-list__item:hover .upload-handle {
+  opacity: 1;
+}
+
+.upload-box /deep/ .upload .upload-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 12px;
+  line-height: 30px;
+  color: var(--el-color-info);
+
+
+}
+
+.upload-box /deep/ .upload .upload-empty .el-icon {
+  font-size: 28px;
+  color: var(--el-text-color-secondary);
+}
+
+.upload-box /deep/ .upload .upload-box .upload .upload-box .el-upload__tip {
+  line-height: 15px;
+  text-align: center;
+}
+</style>

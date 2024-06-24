@@ -1,8 +1,8 @@
-import SearchBar from "./SearchBar.vue";
-import PlantList from "./PlantList.vue";
-import Pagination from "./Pagination.vue";
-import Images from "./Images.vue";
-import PlantFormUI from "./PlantFormUI.vue";
+import SearchBar from "@/components/SearchBar.vue";
+import PlantList from "@/components/PlantList.vue";
+import Pagination from "@/components/Pagination.vue";
+import Images from "@/components/base-image/Images.vue";
+import PlantFormDialog from "@/components/PlantFormDialog.vue";
 import BaseInput from "@/components/base-input/base-input.vue";
 
 // import BaseSelect from "@/components/base-select/base-select.vue";
@@ -16,4 +16,4 @@ componentMap.set("input", BaseInput);
 // componentMap.set("number", BaseInputNumber);
 // componentMap.set("date", BaseDatePicker);
 
-export { SearchBar, PlantList, Pagination, Images, PlantFormUI, BaseInput };
+export { SearchBar, PlantList, Pagination, Images, PlantFormDialog, BaseInput };

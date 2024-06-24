@@ -1,9 +1,10 @@
 <script setup>
-import { SearchBar, PlantList, Pagination, PlantFormUI } from '@/components/index'
-import { getPlantList, deletePlant, getPlantDetail } from '@/api/plant';
-import { ref, reactive, onMounted } from 'vue';
+import { SearchBar, PlantList, Pagination, PlantFormDialog } from '@/components/index'
+import { getPlantList, deletePlant } from '@/api/plant';
+import { ref, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
 import { generateUUID } from "@/utils/utils";
+
 // table 数据 
 const currentPage = ref(1)
 const pageSize = ref(10)
@@ -56,7 +57,6 @@ function handlePageSizeChange(size) {
 // 操作植物逻辑 
 function queryByName(name) {
   currentPage.value = 1
-  pageSize.value = 10
   chineseName.value = name
   queryPlantList()
 }
@@ -82,7 +82,7 @@ function deletePlantById(id) {
 const showDialog = ref(false)
 function newPlant() {
   showDialog.value = true
-  openPlantForm('新增')
+  openPlantForm('新增', { latinStyle: 1 })
 }
 async function editPlantById(row) {
   showDialog.value = true
@@ -95,15 +95,16 @@ function openPlantForm(title, row) {
     title,
     isView: title === "查看",
     row: { ...row },
-    getTableList: queryPlantList
+    getTableList: () => resetParams()
   };
+
   plantFormRef.value?.acceptParams(params);
 }
 
 </script>
 
 <template>
-  <main class="max-w-5xl mx-auto">
+  <main class="max-w-6xl mx-auto mb-10">
     <!-- search bar and filter -->
 
     <SearchBar :chineseName="chineseName" @queryByName="queryByName" @resetParams="resetParams"
@@ -116,6 +117,6 @@ function openPlantForm(title, row) {
     <Pagination :currentPage="currentPage" :total="totalNum" :pages="pages" :pageSize="pageSize"
       @handlePageChange="handlePageChange" @handlePageSizeChange="handlePageSizeChange"></Pagination>
 
-    <PlantFormUI v-if="showDialog" ref="plantFormRef"></PlantFormUI>
+    <PlantFormDialog ref="plantFormRef"></PlantFormDialog>
   </main>
 </template>
