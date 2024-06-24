@@ -9,3 +9,13 @@
     } */
     /* ... */
 }
+
+@layer utilities {
+    .from-line-green-start {
+        --tw-gradient-from: #ffffff;
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    }
+    .to-line-green-end {
+        --tw-gradient-to: #8ef791;
+    }
+}

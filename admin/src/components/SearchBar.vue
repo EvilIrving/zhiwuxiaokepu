@@ -18,7 +18,7 @@ function add() {
     <section class="search-bar flex justify-between items-center mb-10 mt-6">
         <div class="flex gap-4">
             <span class="leading-loose align-middle">中文名搜索</span>
-            <el-input v-model="name" style="width: 240px" placeholder="支持模糊搜索">
+            <el-input v-model="name" style="width: 240px" placeholder="支持模糊搜索" @keyup.enter="searchBy">
                 <template #prefix>
                     <el-icon class="el-input__icon">
                         <search />

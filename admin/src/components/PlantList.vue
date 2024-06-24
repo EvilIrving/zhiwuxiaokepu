@@ -18,19 +18,17 @@ const handleDelete = (row) => {
         <el-table-column property="chineseName" label="中文名" width="200" show-overflow-tooltip />
         <el-table-column property="latinName" label="拉丁名" width="200" show-overflow-tooltip />
         <el-table-column property="family" label="科属" width="120" />
-        <el-table-column label="图片1" width="120">
+        <el-table-column label="图片1" width="150" align="center">
             <template #default="scope">
-                <!-- <Suspense fallback="Loading..."> -->
                 <Images :key="scope.row.image1" :src="scope.row.image1" />
-                <!-- </Suspense> -->
             </template>
         </el-table-column>
-        <el-table-column label="图片2" width="120">
+        <el-table-column label="图片2" width="150" align="center">
             <template #default="scope">
                 <Images :key="scope.row.image2" :src="scope.row.image2" />
             </template>
         </el-table-column>
-        <el-table-column label="二维码" width="120">
+        <el-table-column label="二维码" width="120" align="center">
             <!-- qrcode -->
             <template #default="scope">
                 <Images :key="scope.row.id" :qrcode="scope.row.qrcode" />

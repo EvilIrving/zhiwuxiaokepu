@@ -13,10 +13,18 @@ export default defineComponent({
       required: true,
       default: '',
     },
+    latinStyle: {
+      type: Number, // 拉丁格式 1-正则 2-全正体
+      default: 1,
+    },
   },
   setup(props) {
-    const { name, latinName } = props
+    const { name, latinName, latinStyle } = props
     const fotmattedTitle = computed(() => {
+      if (latinStyle === 2) {
+        return `<span class="not-italic">${latinName}</span>`
+      }
+
       let text = latinName.trim()
       // 定义正则表达式模式
       const patterns = [/var\./g, /f\./g, /cv\./g, /subsp\./g, /Hybrid/g, /'[^']*'/g]
@@ -28,9 +36,6 @@ export default defineComponent({
 
       return text
     })
-
-    console.log(latinName, '-------', fotmattedTitle.value)
-
     return () => (
       <>
         <section class="absolute bottom-0 pb-4 w-full px-4 z-20 text-white bg-gradient-to-b from-title-white-start to-title-white-end">

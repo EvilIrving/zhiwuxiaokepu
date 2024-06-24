@@ -38,7 +38,7 @@
 
 <script setup name="UploadImgs">
 import { ref, computed, inject, watch } from "vue";
-import { Plus } from "@element-plus/icons-vue";
+// import { Plus } from "@element-plus/icons-vue";
 import { uploadImage } from "@/api/upload";
 import { ElMessage, formContextKey, formItemContextKey } from "element-plus";
 
@@ -197,7 +197,7 @@ const handlePictureCardPreview = (file) => {
 </script>
 
 <style scoped>
-.upload-box /deep/ .upload .el-upload-dragger {
+.upload-box :deep(.upload) .el-upload-dragger {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -209,30 +209,30 @@ const handlePictureCardPreview = (file) => {
   border-radius: v-bind(borderRadius);
 }
 
-.upload-box /deep/ .upload .el-upload-dragger:hover {
+.upload-box :deep(.upload) .el-upload-dragger:hover {
   border: 1px dashed var(--el-color-primary);
 }
 
-.upload-box /deep/ .upload .el-upload-dragger.is-dragover {
+.upload-box :deep(.upload) .el-upload-dragger.is-dragover {
   background-color: var(--el-color-primary-light-9);
   border: 2px dashed var(--el-color-primary) !important;
 }
 
-.upload-box /deep/ .upload .el-upload-list__item,
-.upload-box /deep/ .upload .el-upload--picture-card {
+.upload-box :deep(.upload) .el-upload-list__item,
+.upload-box :deep(.upload) .el-upload--picture-card {
   width: v-bind(width);
   height: v-bind(height);
   background-color: transparent;
   border-radius: v-bind(borderRadius);
 }
 
-.upload-box /deep/ .upload .upload-image {
+.upload-box :deep(.upload) .upload-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.upload-box /deep/ .upload .upload-handle {
+.upload-box :deep(.upload) .upload-handle {
   position: absolute;
   top: 0;
   right: 0;
@@ -250,7 +250,7 @@ const handlePictureCardPreview = (file) => {
 
 }
 
-.upload-box /deep/ .upload .upload-handle .handle-icon {
+.upload-box :deep(.upload) .upload-handle .handle-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -261,21 +261,21 @@ const handlePictureCardPreview = (file) => {
 
 }
 
-.upload-box /deep/ .upload .upload-handle .handle-icon .el-icon {
+.upload-box :deep(.upload) .upload-handle .handle-icon .el-icon {
   margin-bottom: 15%;
   font-size: 140%;
 }
 
-.upload-box /deep/ .upload .upload-handle .handle-icon span {
+.upload-box :deep(.upload) .upload-handle .handle-icon span {
   font-size: 100%;
 }
 
 
-.upload-box /deep/ .upload .el-upload-list__item:hover .upload-handle {
+.upload-box :deep(.upload) .el-upload-list__item:hover .upload-handle {
   opacity: 1;
 }
 
-.upload-box /deep/ .upload .upload-empty {
+.upload-box :deep(.upload) .upload-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -286,12 +286,12 @@ const handlePictureCardPreview = (file) => {
 
 }
 
-.upload-box /deep/ .upload .upload-empty .el-icon {
+.upload-box :deep(.upload) .upload-empty .el-icon {
   font-size: 28px;
   color: var(--el-text-color-secondary);
 }
 
-.upload-box /deep/ .upload .upload-box .upload .upload-box .el-upload__tip {
+.upload-box :deep(.upload) .upload-box .upload .upload-box .el-upload__tip {
   line-height: 15px;
   text-align: center;
 }

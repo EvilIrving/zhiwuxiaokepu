@@ -21,7 +21,7 @@
 <script setup>
 import inputProps from "./props";
 import { useVModel } from "@vueuse/core";
-import { ref, defineProps, defineEmits, defineExpose } from "vue";
+import { ref} from "vue";
 
 const baseInputRef = ref();
 

@@ -15,7 +15,7 @@ export default ({ command, mode }: ConfigEnv): UserConfigExport => {
     base: '/',
     build: {
       target: 'es2015',
-      outDir: '植物小科普', // 设置打包输出目录的名称
+      outDir: '植物小科普移动端', // 设置打包输出目录的名称
       assetsDir: 'assets',
       chunkSizeWarningLimit: 1000,
       cssCodeSplit: true,

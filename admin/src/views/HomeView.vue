@@ -1,5 +1,5 @@
 <script setup>
-import { SearchBar, PlantList, Pagination, PlantFormDialog } from '@/components/index'
+import { SearchBar, PlantList, Pagination, PlantFormDialog, Avatar } from '@/components/index'
 import { getPlantList, deletePlant } from '@/api/plant';
 import { ref, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
@@ -105,8 +105,8 @@ function openPlantForm(title, row) {
 
 <template>
   <main class="max-w-6xl mx-auto mb-10">
+    <Avatar />
     <!-- search bar and filter -->
-
     <SearchBar :chineseName="chineseName" @queryByName="queryByName" @resetParams="resetParams"
       @newPlant="newPlant('新增')" />
 

@@ -12,10 +12,10 @@ const url = src || qrcode
 
 </script>
 <template>
-    <el-image style="width: 50px; height: 50px" :src="url" fit="cover" preview-teleported hide-on-click-modal
+    <el-image style="width: 100px; height: 50px" :src="url" fit="contain" preview-teleported hide-on-click-modal
         :zoom-rate="1.2" :max-scale="4" :min-scale="0.6" :preview-src-list="[url]" :initial-index="4">
         <template #placeholder>
-            <div class="image-slot">Loading<span class="dot">...</span></div>
+            <div class="image-slot">加载中<span class="dot">...</span></div>
         </template>
         <template #error>
             <div class="image-slot">-</div>

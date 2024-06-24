@@ -10,7 +10,7 @@ lerna-debug.log*
 node_modules
 .DS_Store
 dist
-植物小科普
+植物小科普移动端
 dist-ssr
 coverage
 *.local

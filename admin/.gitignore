@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
+植物小科普后台管理
 dist-ssr
 *.local
 .history
