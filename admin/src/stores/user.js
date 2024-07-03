@@ -3,6 +3,7 @@ import { store, storeReset } from "./index";
 import { login } from "@/api/user";
 import { resetRouter } from "@/router";
 import piniaPersistConfig from "@/stores/helper/persist";
+import { LOGIN_URL } from "@/config/config";
 export const useUserStore = defineStore({
   id: "user",
   persist: true,
@@ -29,7 +30,7 @@ export const useUserStore = defineStore({
       resetRouter();
       const { currentRoute } = router;
       router.replace({
-        path: "/login",
+        path: LOGIN_URL,
         query: {
           redirect: currentRoute.value.path,
         },
