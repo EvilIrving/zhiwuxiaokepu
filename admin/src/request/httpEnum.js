@@ -13,6 +13,8 @@ export const ContentTypeEnum = {
   FORM_URLENCODED: "application/x-www-form-urlencoded;charset=UTF-8",
   // form-data  upload
   FORM_DATA: "multipart/form-data;charset=UTF-8",
+  // file stream
+  Blob: "blob",
 };
 
 export const ErrorMsgEnum = {

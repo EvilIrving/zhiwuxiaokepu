@@ -37,8 +37,7 @@
 </template>
 
 <script setup name="UploadImgs">
-import { ref, computed, inject, watch } from "vue";
-// import { Plus } from "@element-plus/icons-vue";
+import { ref, computed, inject, watch } from "vue"; 
 import { uploadImage } from "@/api/upload";
 import { ElMessage, formContextKey, formItemContextKey } from "element-plus";
 

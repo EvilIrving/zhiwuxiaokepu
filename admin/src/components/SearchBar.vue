@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
-const emit = defineEmits(['queryByName', 'resetParams', 'newPlant'])
-
+const emit = defineEmits(['queryByName', 'resetParams', 'newPlant', 'download'])
+const { exportText } = defineProps(['exportText'])
 const name = ref('')
 function searchBy() {
     emit('queryByName', name.value)
@@ -11,6 +11,9 @@ function reset() {
 }
 function add() {
     emit('newPlant', true)
+}
+function download() {
+    emit('download', true)
 }
 </script>
 
@@ -35,6 +38,7 @@ function add() {
 
 
         <div class="btns mr-20">
+            <el-button type="primary" @click="download">{{ exportText }}</el-button>
             <el-button type="primary" @click="add">添加</el-button>
         </div>
 

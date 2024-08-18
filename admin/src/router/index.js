@@ -14,6 +14,10 @@ const router = createRouter({
     },
     {
       path: "/",
+      redirect: "/home",
+    },
+    {
+      path: "/home",
       name: "home",
       component: HomeView,
     },
@@ -44,8 +48,7 @@ router.beforeEach(async (to, from, next) => {
   const { getToken } = useUserStoreWithOut();
   //  判断是访问登陆页，有 Token 就在当前页面，没有 Token 重置路由到登陆页
   if (to.path.toLocaleLowerCase() === LOGIN_URL) {
-    if (getToken) return next(from.fullPath);
-    // resetRouter();
+    if (getToken) return next(from.fullPath); 
     return next();
   }
 

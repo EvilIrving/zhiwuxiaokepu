@@ -3,13 +3,6 @@
 const { src, qrcode } = defineProps(['src', 'qrcode'])
 const url = src || qrcode
 
-// let options = { percentage: 25, width: 50, height: 50 }
-// let urlThumbnail = ''
-
-// urlThumbnail = await src ? imageThumbnail(qrcode, options) : imageThumbnail({ uri: src, options });
-// console.log(urlThumbnail);
-
-
 </script>
 <template>
     <el-image style="width: 100px; height: 50px" :src="url" fit="contain" preview-teleported hide-on-click-modal

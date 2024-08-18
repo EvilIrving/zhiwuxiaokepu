@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useEnv } from "@/hooks/useEnv";
 import { ResultEnum, ContentTypeEnum } from "@/request/httpEnum";
-import { useUserStoreWithOut } from "@/stores/user";
+import { useUserStoreWithOut ,useUserStore } from "@/stores/user"; 
 import { LOGIN_URL } from "@/config/config";
-import router from "@/router";
+import  router  from "@/router";
 import { checkStatus } from "@/request/checkStatus";
 import { AxiosLoading } from "./loading";
 import { AxiosCancel } from "./cancel";
-import { AxiosRetry } from "./retry";
 import { ElMessage } from "element-plus";
 const defaultConfig = {
   successMessage: false,
@@ -31,7 +30,12 @@ const service = axios.create({
 
 service.interceptors.request.use((config) => {
   const { getToken } = useUserStoreWithOut();
-  const { cancelSame, loading, contentType } = config.requestOptions;
+  const { cancelSame, loading, contentType, responseType } =
+    config.requestOptions;
+
+  if (responseType) {
+    config.responseType = responseType;
+  }
 
   if (contentType) {
     config.headers["Content-Type"] = contentType;
@@ -53,6 +57,9 @@ service.interceptors.request.use((config) => {
 
 service.interceptors.response.use(
   (response) => {
+    const userStore = useUserStore();
+    console.log(response, "response");
+    
     const { data, config } = response;
     axiosCancel.removePending(config);
 
@@ -62,9 +69,7 @@ service.interceptors.response.use(
 
     // 登录失效
     if (data.code == ResultEnum.OVERDUE) {
-      userStore.setToken("");
-      router.replace(LOGIN_URL);
-      ElMessage.error(data.msg);
+      userStore.logout(router);  
       return Promise.reject(data);
     }
     // 全局错误信息拦截（防止下载文件的时候返回数据流，没有 code 直接报错）
@@ -81,6 +86,7 @@ service.interceptors.response.use(
     // }
   },
   async (error) => {
+    const userStore = useUserStore();
     const { response, config } = error;
     axiosCancel.removePending(config || {});
     // 请求超时 && 网络错误单独判断，没有 response
@@ -89,10 +95,13 @@ service.interceptors.response.use(
     if (error.message.indexOf("Network Error") !== -1)
       ElMessage.error("网络错误！请您稍后重试");
     // 根据服务器响应的错误状态码，做不同的处理
-    if (response) checkStatus(response.status, router);
+    if (response) checkStatus(response.status);
+    console.log(response, "response");
     // 服务器结果都没有返回(可能服务器错误可能客户端断网)，断网处理:可以跳转到断网页面
     if (!window.navigator.onLine) router.replace("/500");
-    if (response && response.status === 401) router.replace(LOGIN_URL);
+    if (response && response.status === 401) {
+      userStore.logout(router); 
+    }
     return Promise.reject(error);
   }
   // (err) => {

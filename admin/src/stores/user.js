@@ -27,7 +27,7 @@ export const useUserStore = defineStore({
 
     logout(router) {
       storeReset();
-      resetRouter();
+      // resetRouter();
       const { currentRoute } = router;
       router.replace({
         path: LOGIN_URL,

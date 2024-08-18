@@ -1,9 +1,10 @@
 <script setup>
 import { SearchBar, PlantList, Pagination, PlantFormDialog, Avatar } from '@/components/index'
 import { getPlantList, deletePlant } from '@/api/plant';
-import { ref, onMounted } from 'vue';
+import { exportZip } from '@/api/upload'
+import { ref, onMounted} from 'vue';
 import { ElMessage } from 'element-plus';
-import { generateUUID } from "@/utils/utils";
+import { generateUUID } from "@/utils/utils"; 
 
 // table 数据 
 const currentPage = ref(1)
@@ -43,6 +44,8 @@ const queryPlantList = async () => {
   }
 }
 
+
+// 调整页码
 function handlePageChange(page) {
   currentPage.value = page
   queryPlantList()
@@ -54,7 +57,7 @@ function handlePageSizeChange(size) {
 }
 
 
-// 操作植物逻辑 
+// 操作植物的逻辑 : 查找,重置
 function queryByName(name) {
   currentPage.value = 1
   chineseName.value = name
@@ -78,7 +81,43 @@ function deletePlantById(id) {
     ElMessage.error('删除失败,请联系开发人员')
   })
 }
+// 导出表格
+let exportText = ref('导出全部')
+let multipleSelection = ref([])  // 选中的行
+function download() {
+  // 调用接口
+  const ids = getIds(multipleSelection)
+  const res = exportZip({ idList: ids })
+  res.then(url => {
+    downloadByUrl(url)
+  }).catch(error => {
+    console.log(error)
+  })
+}
 
+function getIds(rows) {
+  return rows.value.map(row => row.id)
+}
+
+
+function downloadByUrl(url) {
+  const data = window.URL.createObjectURL(new Blob([url], { type: 'application/zip,charset=utf-8' })); // 'application/x-msdownload'
+  const link = document.createElement('a');
+  link.href = data;
+  link.setAttribute('download', '导出表格.zip'); // 设置文件名
+  document.body.appendChild(link);
+  link.click();
+  window.URL.revokeObjectURL(data); // 释放 URL 对象
+}
+
+function getSelectRowsData(val) {
+  console.log(val, 'val');
+  exportText.value = `导出${val.length > 0 ? '所选行' : '全部'}`
+
+  multipleSelection.value = val
+}
+
+// 新增, 编辑, 删除
 const showDialog = ref(false)
 function newPlant() {
   showDialog.value = true
@@ -104,14 +143,15 @@ function openPlantForm(title, row) {
 </script>
 
 <template>
-  <main class="max-w-6xl mx-auto mb-10">
+  <main class="max-w-7xl mx-auto mb-10">
     <Avatar />
     <!-- search bar and filter -->
-    <SearchBar :chineseName="chineseName" @queryByName="queryByName" @resetParams="resetParams"
-      @newPlant="newPlant('新增')" />
+    <SearchBar :chineseName="chineseName" :exportText="exportText" @queryByName="queryByName" @resetParams="resetParams"
+      @download="download('')" @newPlant="newPlant('新增')" />
 
     <!-- table of plants -->
-    <PlantList :plantList="plantList" @deletePlant="deletePlantById" @editPlant="editPlantById" />
+    <PlantList :plantList="plantList" @deletePlant="deletePlantById" @editPlant="editPlantById"
+      @getSelectRowsData="getSelectRowsData" />
 
     <!-- pagination -->
     <Pagination :currentPage="currentPage" :total="totalNum" :pages="pages" :pageSize="pageSize"

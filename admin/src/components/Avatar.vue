@@ -24,8 +24,7 @@
   </div>
 </template>
 
-<script setup>
-import { LOGIN_URL } from "@/config/config";
+<script setup> 
 import { modifyPassword } from "@/api/user";
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
@@ -55,17 +54,12 @@ const logout = async (showConfirm = true) => {
       type: "warning"
     })
   }
-
-  console.log(confirmText);
+ 
   if (confirmText === 'confirm') {
     // 1.执行退出登录接口
     // await logoutApi();
 
-    // 2.清除 Token
-    userStore.setToken("");
-
-    // 3.重定向到登陆页
-    router.replace(LOGIN_URL);
+    userStore.logout(router)
     showConfirm && ElMessage.success("退出登录成功！");
   }
 };
