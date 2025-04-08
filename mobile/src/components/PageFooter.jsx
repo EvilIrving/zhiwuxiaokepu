@@ -3,7 +3,7 @@ import footer from '@/assets/images/footer.jpg'
 export default defineComponent({
   name: 'Footer',
   setup() {
-    const year = new Date().getFullYear()
+    const year = 2024; // new Date().getFullYear()
     return () => (
       <footer class="w-full h-40 relative mt-56">
         <img
