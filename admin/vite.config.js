@@ -67,14 +67,7 @@ export default () => {
       },
     },
     server: {
-      open: true,
-      proxy: {
-        "/api": {
-          target: "http://47.100.227.140:8081",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
-        },
-      },
+      open: true
     },
   });
 };

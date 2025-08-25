@@ -133,10 +133,10 @@ const rules = reactive({
     latinName: [{ required: true, message: '请输入拉丁名', trigger: 'blur' }],
     family: [{ required: true, message: '请输入科', trigger: 'blur' }],
     genus: [{ required: true, message: '请输入属', trigger: 'blur' }],
-    morphological: [{ required: true, message: '请输入形态特征', trigger: 'blur' }],
-    lifeHabit: [{ required: true, message: '请输入生活习性', trigger: 'blur' }],
-    greenApplication: [{ required: true, message: '请输入绿化运用', trigger: 'blur' }],
-    photosArr: [{ required: true, message: "请上传植物照片" }],
+    // morphological: [{ required: true, message: '请输入形态特征', trigger: 'blur' }],
+    // lifeHabit: [{ required: true, message: '请输入生活习性', trigger: 'blur' }],
+    // greenApplication: [{ required: true, message: '请输入绿化运用', trigger: 'blur' }],
+    // photosArr: [{ required: true, message: "请上传植物照片" }],
 });
 
 const InputStyle = ref({ width: '300px' })
